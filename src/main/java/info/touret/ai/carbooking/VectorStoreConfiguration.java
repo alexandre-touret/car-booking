@@ -6,7 +6,6 @@ import org.springframework.ai.document.Document;
 import org.springframework.ai.embedding.EmbeddingClient;
 import org.springframework.ai.reader.TextReader;
 import org.springframework.ai.vectorstore.PgVectorStore;
-import org.springframework.ai.vectorstore.SimpleVectorStore;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -28,9 +27,10 @@ public class VectorStoreConfiguration {
     private Resource resource;
 
     @Bean()
-    public VectorStore createAndLoadVectorStore(JdbcTemplate jdbcTemplate,EmbeddingClient embeddingClient) {
+    @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+    public VectorStore createAndLoadVectorStore(JdbcTemplate jdbcTemplate, EmbeddingClient embeddingClient) {
         LOGGER.info("Creating Embeddings...");
-        VectorStore vectorStore = new PgVectorStore(jdbcTemplate,embeddingClient);
+        VectorStore vectorStore = new PgVectorStore(jdbcTemplate, embeddingClient);
         vectorStore.add(loadText());
         return vectorStore;
     }
