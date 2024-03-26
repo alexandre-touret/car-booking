@@ -1,0 +1,14 @@
+version: "3"
+services:
+  database:
+    image: "ankane/pgvector"
+    container_name: "car-db"
+    environment:
+      - POSTGRES_DB=cardb
+      - POSTGRES_PASSWORD=car
+      - POSTGRES_USER=car
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
