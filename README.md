@@ -19,7 +19,7 @@ docker compose up -d
 # How to test it?
 
 ```jshelllanguage
- http :8080/ai/rag message=="what are the car booking requirements?"
+http :8080/ai/rag message=="what are the car booking requirements?"
 ```
 
 ```jshelllanguage
